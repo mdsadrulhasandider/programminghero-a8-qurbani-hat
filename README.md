@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🐄 QurbaniHat - Livestock Booking Platform
 
-## Getting Started
+Welcome to **QurbaniHat**, a modern, responsive, and user-friendly livestock booking platform tailored for the Qurbani season. Built with Next.js, Tailwind CSS, and Firebase Authentication, this application provides a seamless experience for browsing, sorting, and booking animals online.
 
-First, run the development server:
+🌍 **Live Website:** [QurbaniHat Live Link](https://programminghero-a8-qurbani-hat.vercel.app/)
 
+---
+
+## ✨ Key Features
+
+*   **Responsive Design:** Fully optimized for Mobile, Tablet, and Desktop screens using Tailwind CSS.
+*   **Dynamic Data Fetching:** Animals data is fetched dynamically with built-in loading skeleton states.
+*   **Price Sorting:** Users can sort animals by price (Low to High / High to Low).
+*   **Authentication System:** Secure Login and Registration via **Firebase** (Email/Password & Google Sign-in).
+*   **Private Routes:** The "Details & Booking" page is protected and requires user authentication.
+*   **Seamless Booking:** Auto-fills user details (Name, Email) into the booking form. Shows success toast messages upon booking.
+*   **Profile Management:** Users can view and update their profile information (Name & Profile Picture URL) instantly.
+*   **Custom 404 Page:** A beautifully designed "Not Found" page for invalid routes.
+
+---
+
+## 🛠️ Technologies Used
+
+*   **Frontend:** Next.js (App Router), React.js
+*   **Styling:** Tailwind CSS, Animate.css
+*   **Icons & Alerts:** React Icons, React Hot Toast
+*   **Authentication:** Firebase Auth
+*   **Deployment:** Vercel
+
+---
+
+## 🚀 Run the Project Locally
+
+If you want to run this project on your local machine, follow these steps:
+
+### 1. Clone the repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/mdsadrulhasandider/programminghero-a8-qurbani-hat.git
+cd programminghero-a8-qurbani-hat
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Install dependencies
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Setup Firebase Environment Variables
+Create a `.env.local` file in the root directory and add your Firebase config keys:
+```env
+NEXT_PUBLIC_FIREBASE_API_KEY="YOUR_API_KEY"
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN="YOUR_AUTH_DOMAIN"
+NEXT_PUBLIC_FIREBASE_PROJECT_ID="YOUR_PROJECT_ID"
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET="YOUR_STORAGE_BUCKET"
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID="YOUR_SENDER_ID"
+NEXT_PUBLIC_FIREBASE_APP_ID="YOUR_APP_ID"
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 4. Run the development server
+```bash
+npm run dev
+```
 
-## Learn More
+Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+*Designed & Developed as part of a Programming Hero Assignment.*
