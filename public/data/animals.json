@@ -1,0 +1,80 @@
+[
+  {
+    "id": 1,
+    "name": "Deshi Shahi Cow",
+    "type": "Cow",
+    "breed": "Local Deshi",
+    "price": 120000,
+    "weight": 280,
+    "age": 3,
+    "location": "Bogura",
+    "description": "Healthy deshi cow suitable for Qurbani. Well fed with natural food.",
+    "image": "https://images.unsplash.com/photo-1546445317-29f4545e9d53?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    "category": "Large Animal"
+  },
+  {
+    "id": 2,
+    "name": "Pabna Premium Bull",
+    "type": "Cow",
+    "breed": "Pabnai",
+    "price": 180000,
+    "weight": 450,
+    "age": 4,
+    "location": "Pabna",
+    "description": "Premium breed Pabnai cow. Top choice for Qurbani with maximum meat yield.",
+    "image": "https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    "category": "Large Animal"
+  },
+  {
+    "id": 3,
+    "name": "MirKadim White Cow",
+    "type": "Cow",
+    "breed": "MirKadim",
+    "price": 250000,
+    "weight": 350,
+    "age": 3.5,
+    "location": "Dhaka",
+    "description": "Beautiful white MirKadim cow. Traditionally fed and perfect for your family Qurbani.",
+    "image": "https://meatbucketctg.com/wp-content/uploads/2022/06/mirkadim-cow.jpg",
+    "category": "Premium Animal"
+  },
+  {
+    "id": 4,
+    "name": "Black Bengal Goat",
+    "type": "Goat",
+    "breed": "Black Bengal",
+    "price": 25000,
+    "weight": 25,
+    "age": 2,
+    "location": "Rajshahi",
+    "description": "Pure Black Bengal breed. Very active and perfectly healthy for Qurbani.",
+    "image": "https://images.unsplash.com/photo-1524024973431-2ad916746881?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    "category": "Small Animal"
+  },
+  {
+    "id": 5,
+    "name": "Jamunapari Big Goat",
+    "type": "Goat",
+    "breed": "Jamunapari",
+    "price": 45000,
+    "weight": 45,
+    "age": 2.5,
+    "location": "Kushtia",
+    "description": "Large sized Jamunapari goat. Beautiful appearance and well-behaved.",
+    "image": "https://www.agrifarming.in/wp-content/uploads/2015/07/Jamunpari-Goat-Male.jpg",
+    "category": "Small Animal"
+  },
+  {
+    "id": 6,
+    "name": "Brahman Cross Bull",
+    "type": "Cow",
+    "breed": "Brahman Cross",
+    "price": 320000,
+    "weight": 600,
+    "age": 4,
+    "location": "Chattogram",
+    "description": "Huge Brahman cross bull. Perfect for a large family or joint Qurbani.",
+    "image": "https://t3.ftcdn.net/jpg/05/09/52/92/360_F_509529271_mJceOHouF9jDlKT6KyOBt55GDeNsQ8pE.jpg",
+    "category": "Giant Animal"
+  }
+]
