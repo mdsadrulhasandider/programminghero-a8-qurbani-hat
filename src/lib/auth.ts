@@ -6,33 +6,33 @@ const client = new MongoClient(process.env.MONGODB_URI!.trim());
 const db = client.db();
 
 export const auth = betterAuth({
-  database: mongodbAdapter(db),
+    database: mongodbAdapter(db),
 
-  emailAndPassword: {
-    enabled: true,
-  },
-
-  socialProviders: {
-    google: {
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    emailAndPassword: {
+        enabled: true,
     },
-  },
 
-  trustedOrigins: [
-    "https://programminghero-a8-qurbani-hat.vercel.app",
-  ],
-
-  baseURL: process.env.BETTER_AUTH_URL!,
-
-  cookies: {
-    sessionToken: {
-      attributes: {
-        httpOnly: true,
-        secure: true,
-        sameSite: "none",
-        path: "/",
-      },
+    socialProviders: {
+        google: {
+            clientId: process.env.GOOGLE_CLIENT_ID!,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+        },
     },
-  },
+
+    trustedOrigins: [
+        "https://programminghero-a8-qurbani-hat.vercel.app",
+    ],
+
+    baseURL: process.env.BETTER_AUTH_URL || "https://programminghero-a8-qurbani-hat.vercel.app",
+
+    cookies: {
+        sessionToken: {
+            attributes: {
+                httpOnly: true,
+                secure: true,
+                sameSite: "none",
+                path: "/",
+            },
+        },
+    },
 });
