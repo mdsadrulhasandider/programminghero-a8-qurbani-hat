@@ -21,7 +21,7 @@ export const auth = betterAuth({
     "https://programminghero-a8-qurbani-hat.vercel.app",
   ],
 
-  // env mismatch এড়াতে আপাতত hardcode
+
   baseURL: "https://programminghero-a8-qurbani-hat.vercel.app",
 
   cookies: {
@@ -29,7 +29,7 @@ export const auth = betterAuth({
       attributes: {
         httpOnly: true,
         secure: true,
-        sameSite: "none", // OAuth redirect-এর জন্য দরকার
+        sameSite: "none", 
         path: "/",
       },
     },
