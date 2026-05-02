@@ -16,6 +16,15 @@ export const auth = betterAuth({
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
         }
     },
+    // @ts-ignore - Some versions of Better Auth use 'cookies' for cross-site session handling
+    cookies: {
+        sessionToken: {
+            attributes: {
+                sameSite: "none",
+                secure: true,
+            },
+        },
+    },
     trustedOrigins: [
         "http://localhost:3000",
         "https://programminghero-a8-qurbani-hat.vercel.app"
