@@ -3,8 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { auth, googleProvider } from "@/lib/firebase";
-import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { signIn } from "@/lib/auth-client";
 import toast from "react-hot-toast";
 
 export default function Login() {
@@ -24,21 +23,41 @@ export default function Login() {
     setLoading(true);
 
     try {
-      await signInWithEmailAndPassword(auth, formData.email, formData.password);
-      toast.success("Login successful!");
-      router.push("/");
+      await signIn.email({ 
+        email: formData.email, 
+        password: formData.password 
+      }, {
+        onSuccess: () => {
+          toast.success("Login successful!");
+          router.push("/");
+          router.refresh();
+        },
+        onError: (ctx) => {
+          toast.error(ctx.error.message || "Invalid credentials.");
+          setLoading(false);
+        }
+      });
     } catch (err: any) {
-      toast.error(err.message || "Invalid credentials.");
-    } finally {
+      toast.error(err.message || "Login failed!");
       setLoading(false);
     }
   };
 
   const handleGoogleLogin = async () => {
     try {
-      await signInWithPopup(auth, googleProvider);
-      toast.success("Login successful!");
-      router.push("/");
+      await signIn.social({
+        provider: "google",
+        callbackURL: "/"
+      }, {
+        onSuccess: () => {
+          toast.success("Login successful!");
+          router.push("/");
+          router.refresh();
+        },
+        onError: (ctx) => {
+          toast.error(ctx.error.message || "Google Login failed!");
+        }
+      });
     } catch (err: any) {
       toast.error(err.message || "Google Login failed!");
     }

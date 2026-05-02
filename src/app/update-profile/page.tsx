@@ -2,38 +2,30 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { auth } from "@/lib/firebase";
-import { onAuthStateChanged, updateProfile, User } from "firebase/auth";
+import { useSession, updateUser } from "@/lib/auth-client";
 import toast from "react-hot-toast";
 
 export default function UpdateProfile() {
   const router = useRouter();
-  const [user, setUser] = useState<User | null>(null);
-  const [loadingAuth, setLoadingAuth] = useState(true);
+  const { data: session, isPending: loadingAuth } = useSession();
+  const user = session?.user;
   const [updating, setUpdating] = useState(false);
-  
   const [formData, setFormData] = useState({
     name: "",
     photoURL: ""
   });
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (!currentUser) {
-        toast.error("Please login to update your profile");
-        router.push("/login");
-      } else {
-        setUser(currentUser);
-        setFormData({
-          name: currentUser.displayName || "",
-          photoURL: currentUser.photoURL || ""
-        });
-      }
-      setLoadingAuth(false);
-    });
-
-    return () => unsubscribe();
-  }, [router]);
+    if (!loadingAuth && !user) {
+      toast.error("Please login to update your profile");
+      router.push("/login");
+    } else if (user) {
+      setFormData({
+        name: user.name || "",
+        photoURL: user.image || ""
+      });
+    }
+  }, [user, loadingAuth, router]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -45,13 +37,18 @@ export default function UpdateProfile() {
     
     setUpdating(true);
     try {
-      await updateProfile(user, {
-        displayName: formData.name,
-        photoURL: formData.photoURL
+      await updateUser({
+        name: formData.name,
+        image: formData.photoURL
+      }, {
+        onSuccess: () => {
+          toast.success("Profile Information Updated Successfully!");
+          router.push("/my-profile");
+        },
+        onError: (ctx) => {
+          toast.error(ctx.error.message || "Failed to update profile");
+        }
       });
-      
-      toast.success("Profile Information Updated Successfully!");
-      router.push("/my-profile");
     } catch (error: any) {
       toast.error(error.message || "Failed to update profile");
     } finally {

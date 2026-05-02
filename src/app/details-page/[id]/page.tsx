@@ -2,8 +2,7 @@
 
 import { useEffect, useState, use } from "react";
 import { useRouter } from "next/navigation";
-import { auth } from "@/lib/firebase";
-import { onAuthStateChanged, User } from "firebase/auth";
+import { useSession } from "@/lib/auth-client";
 import toast from "react-hot-toast";
 
 interface Animal {
@@ -23,12 +22,10 @@ interface Animal {
 export default function DetailsPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params);
   const router = useRouter();
-  const [user, setUser] = useState<User | null>(null);
-  const [loadingAuth, setLoadingAuth] = useState(true);
+  const { data: session, isPending: loadingAuth } = useSession();
+  const user = session?.user;
   const [animal, setAnimal] = useState<Animal | null>(null);
   const [loadingData, setLoadingData] = useState(true);
-
-  // Form State
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -38,24 +35,20 @@ export default function DetailsPage({ params }: { params: Promise<{ id: string }
 
   // 1. Authentication Check
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (!currentUser) {
+    if (!loadingAuth) {
+      if (!user) {
         toast.error("You must be logged in to view details and book.");
         router.push("/login");
       } else {
-        setUser(currentUser);
         // Pre-fill user data if available
         setFormData((prev) => ({
           ...prev,
-          name: currentUser.displayName || "",
-          email: currentUser.email || ""
+          name: user.name || "",
+          email: user.email || ""
         }));
       }
-      setLoadingAuth(false);
-    });
-
-    return () => unsubscribe();
-  }, [router]);
+    }
+  }, [user, loadingAuth, router]);
 
   // 2. Fetch Animal Data
   useEffect(() => {
@@ -96,7 +89,7 @@ export default function DetailsPage({ params }: { params: Promise<{ id: string }
     
     // Reset form
     setFormData({
-      name: user?.displayName || "",
+      name: user?.name || "",
       email: user?.email || "",
       phone: "",
       address: ""

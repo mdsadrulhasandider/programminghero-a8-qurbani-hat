@@ -3,8 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { auth, googleProvider } from "@/lib/firebase";
-import { createUserWithEmailAndPassword, updateProfile, signInWithPopup } from "firebase/auth";
+import { signUp, signIn } from "@/lib/auth-client";
 import toast from "react-hot-toast";
 
 export default function Register() {
@@ -26,31 +25,43 @@ export default function Register() {
     setLoading(true);
 
     try {
-      // 1. Create User
-      const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
-      
-      // 2. Update Profile with Name & Photo URL
-      if (userCredential.user) {
-        await updateProfile(userCredential.user, {
-          displayName: formData.name,
-          photoURL: formData.photoURL
-        });
-      }
-
-      toast.success("Registration successful!");
-      router.push("/login");
+      await signUp.email({
+        email: formData.email,
+        password: formData.password,
+        name: formData.name,
+        image: formData.photoURL
+      }, {
+        onSuccess: () => {
+          toast.success("Registration successful!");
+          router.push("/login");
+          router.refresh();
+        },
+        onError: (ctx) => {
+          toast.error(ctx.error.message || "Failed to register!");
+          setLoading(false);
+        }
+      });
     } catch (err: any) {
       toast.error(err.message || "Failed to register!");
-    } finally {
       setLoading(false);
     }
   };
 
   const handleGoogleLogin = async () => {
     try {
-      await signInWithPopup(auth, googleProvider);
-      toast.success("Login successful!");
-      router.push("/");
+      await signIn.social({
+        provider: "google",
+        callbackURL: "/"
+      }, {
+        onSuccess: () => {
+          toast.success("Login successful!");
+          router.push("/");
+          router.refresh();
+        },
+        onError: (ctx) => {
+          toast.error(ctx.error.message || "Google Login failed!");
+        }
+      });
     } catch (err: any) {
       toast.error(err.message || "Google Login failed!");
     }

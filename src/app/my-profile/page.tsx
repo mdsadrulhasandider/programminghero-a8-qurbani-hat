@@ -2,30 +2,22 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { auth } from "@/lib/firebase";
-import { onAuthStateChanged, User } from "firebase/auth";
+import { useSession } from "@/lib/auth-client";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { FaUserCircle } from "react-icons/fa";
 
 export default function MyProfile() {
   const router = useRouter();
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { data: session, isPending: loading } = useSession();
+  const user = session?.user;
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (!currentUser) {
-        toast.error("Please login to view your profile");
-        router.push("/login");
-      } else {
-        setUser(currentUser);
-      }
-      setLoading(false);
-    });
-
-    return () => unsubscribe();
-  }, [router]);
+    if (!loading && !user) {
+      toast.error("Please login to view your profile");
+      router.push("/login");
+    }
+  }, [user, loading, router]);
 
   if (loading) {
     return (
@@ -48,9 +40,9 @@ export default function MyProfile() {
           <div className="bg-green-600 h-32"></div>
           
           <div className="px-6 sm:px-12 pb-8 flex flex-col items-center -mt-16">
-            {user.photoURL ? (
+            {user.image ? (
               <img 
-                src={user.photoURL} 
+                src={user.image!} 
                 alt="Profile" 
                 referrerPolicy="no-referrer"
                 onError={(e) => {
@@ -63,7 +55,7 @@ export default function MyProfile() {
             )}
             
             <h2 className="mt-4 text-2xl font-bold text-gray-900">
-              {user.displayName || "No Name Set"}
+              {user.name || "No Name Set"}
             </h2>
             <p className="text-gray-500 mt-1">{user.email}</p>
             

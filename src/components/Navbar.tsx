@@ -1,30 +1,29 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FaUserCircle, FaBars, FaTimes } from "react-icons/fa";
-import { auth } from "@/lib/firebase";
-import { onAuthStateChanged, signOut, User } from "firebase/auth";
+import { signOut, useSession } from "@/lib/auth-client";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
 export default function Navbar() {
-  const [user, setUser] = useState<User | null>(null);
+  const { data: session } = useSession();
+  const user = session?.user;
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
-    return () => unsubscribe();
-  }, []);
-
   const handleLogout = async () => {
     try {
-      await signOut(auth);
-      toast.success("Logged out successfully");
-      router.push("/login");
+      await signOut({
+        fetchOptions: {
+          onSuccess: () => {
+            toast.success("Logged out successfully");
+            router.push("/login");
+            setIsMobileMenuOpen(false);
+          }
+        }
+      });
       setIsMobileMenuOpen(false); // Close menu on logout
     } catch (error) {
       toast.error("Failed to log out");
@@ -52,9 +51,9 @@ export default function Navbar() {
             {user ? (
               <div className="flex items-center space-x-4">
                 <Link href="/my-profile" className="text-gray-700 hover:text-green-600 transition-colors" title="My Profile">
-                  {user.photoURL ? (
+                  {user.image ? (
                     <img 
-                      src={user.photoURL} 
+                      src={user.image!} 
                       alt="Profile" 
                       referrerPolicy="no-referrer"
                       onError={(e) => {
@@ -123,9 +122,9 @@ export default function Navbar() {
                   onClick={closeMenu}
                   className="flex items-center px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-green-600 hover:bg-green-50"
                 >
-                  {user.photoURL ? (
+                  {user.image ? (
                     <img 
-                      src={user.photoURL} 
+                      src={user.image!} 
                       alt="Profile" 
                       referrerPolicy="no-referrer"
                       onError={(e) => {
