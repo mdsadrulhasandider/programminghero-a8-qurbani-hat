@@ -2,8 +2,19 @@ import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { MongoClient } from "mongodb";
 
-const client = new MongoClient(process.env.MONGODB_URI!);
-const clientPromise = client.connect();
+const uri = process.env.MONGODB_URI!;
+const client = new MongoClient(uri);
+
+// Handle connection singleton for development
+let clientPromise: Promise<MongoClient>;
+if (process.env.NODE_ENV === "development") {
+  if (!(global as any)._mongoClientPromise) {
+    (global as any)._mongoClientPromise = client.connect();
+  }
+  clientPromise = (global as any)._mongoClientPromise;
+} else {
+  clientPromise = client.connect();
+}
 
 const connectedClient = await clientPromise;
 const db = connectedClient.db();
@@ -23,19 +34,19 @@ export const auth = betterAuth({
   },
 
   trustedOrigins: [
+    "http://localhost:3000",
     "https://programminghero-a8-qurbani-hat.vercel.app",
   ],
 
-  baseURL: "https://programminghero-a8-qurbani-hat.vercel.app",
+  baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
 
   cookies: {
     sessionToken: {
       attributes: {
         httpOnly: true,
-        secure: true,
-        sameSite: "none",
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
         path: "/",
-        domain: ".programminghero-a8-qurbani-hat.vercel.app",
       },
     },
   },
