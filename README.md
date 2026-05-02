@@ -1,6 +1,6 @@
 # 🐄 QurbaniHat - Livestock Booking Platform
 
-Welcome to **QurbaniHat**, a modern, responsive, and user-friendly livestock booking platform tailored for the Qurbani season. Built with Next.js, Tailwind CSS, and Firebase Authentication, this application provides a seamless experience for browsing, sorting, and booking animals online.
+Welcome to **QurbaniHat**, a modern, responsive, and user-friendly livestock booking platform tailored for the Qurbani season. Built with Next.js, Tailwind CSS, and Better Auth with MongoDB, this application provides a seamless experience for browsing, sorting, and booking animals online.
 
 🌍 **Live Website:** [QurbaniHat Live Link](https://programminghero-a8-qurbani-hat.vercel.app/)
 
@@ -11,7 +11,8 @@ Welcome to **QurbaniHat**, a modern, responsive, and user-friendly livestock boo
 *   **Responsive Design:** Fully optimized for Mobile, Tablet, and Desktop screens using Tailwind CSS.
 *   **Dynamic Data Fetching:** Animals data is fetched dynamically with built-in loading skeleton states.
 *   **Price Sorting:** Users can sort animals by price (Low to High / High to Low).
-*   **Authentication System:** Secure Login and Registration via **Firebase** (Email/Password & Google Sign-in).
+*   **Authentication System:** Secure Login and Registration via **Better Auth** (Email/Password & Google Sign-in).
+*   **Database Integration:** Persistent data storage using **MongoDB Atlas**.
 *   **Private Routes:** The "Details & Booking" page is protected and requires user authentication.
 *   **Seamless Booking:** Auto-fills user details (Name, Email) into the booking form. Shows success toast messages upon booking.
 *   **Profile Management:** Users can view and update their profile information (Name & Profile Picture URL) instantly.
@@ -24,7 +25,8 @@ Welcome to **QurbaniHat**, a modern, responsive, and user-friendly livestock boo
 *   **Frontend:** Next.js (App Router), React.js
 *   **Styling:** Tailwind CSS, Animate.css
 *   **Icons & Alerts:** React Icons, React Hot Toast
-*   **Authentication:** Firebase Auth
+*   **Authentication:** Better Auth
+*   **Database:** MongoDB Atlas
 *   **Deployment:** Vercel
 
 ---
@@ -44,15 +46,15 @@ cd programminghero-a8-qurbani-hat
 npm install
 ```
 
-### 3. Setup Firebase Environment Variables
-Create a `.env.local` file in the root directory and add your Firebase config keys:
+### 3. Setup Environment Variables
+Create a `.env.local` file in the root directory and add your configuration:
 ```env
-NEXT_PUBLIC_FIREBASE_API_KEY="YOUR_API_KEY"
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN="YOUR_AUTH_DOMAIN"
-NEXT_PUBLIC_FIREBASE_PROJECT_ID="YOUR_PROJECT_ID"
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET="YOUR_STORAGE_BUCKET"
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID="YOUR_SENDER_ID"
-NEXT_PUBLIC_FIREBASE_APP_ID="YOUR_APP_ID"
+BETTER_AUTH_SECRET="your_secret_here"
+BETTER_AUTH_URL="http://localhost:3000"
+NEXT_PUBLIC_BETTER_AUTH_URL="http://localhost:3000"
+GOOGLE_CLIENT_ID="your_google_client_id"
+GOOGLE_CLIENT_SECRET="your_google_client_secret"
+MONGODB_URI="your_mongodb_atlas_uri"
 ```
 
 ### 4. Run the development server
