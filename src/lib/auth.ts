@@ -16,5 +16,12 @@ export const auth = betterAuth({
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
         }
     },
+    advanced: {
+        crossSiteCookies: true,
+    },
+    trustedOrigins: [
+        "http://localhost:3000",
+        "https://programminghero-a8-qurbani-hat.vercel.app"
+    ],
     baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000"
 });
