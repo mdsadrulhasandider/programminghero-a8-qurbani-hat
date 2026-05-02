@@ -53,10 +53,12 @@ export default function Navbar() {
                 <Link href="/my-profile" className="text-gray-700 hover:text-green-600 transition-colors" title="My Profile">
                   {user.image ? (
                     <img 
-                      src={user.image!} 
+                      src={user.image} 
                       alt="Profile" 
                       referrerPolicy="no-referrer"
+                      crossOrigin="anonymous"
                       onError={(e) => {
+                        console.log("Profile image failed to load, using placeholder");
                         (e.target as HTMLImageElement).src = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
                       }}
                       className="w-8 h-8 rounded-full border border-green-500 object-cover" 

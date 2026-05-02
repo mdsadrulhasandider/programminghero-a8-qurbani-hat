@@ -42,10 +42,12 @@ export default function MyProfile() {
           <div className="px-6 sm:px-12 pb-8 flex flex-col items-center -mt-16">
             {user.image ? (
               <img 
-                src={user.image!} 
+                src={user.image} 
                 alt="Profile" 
                 referrerPolicy="no-referrer"
+                crossOrigin="anonymous"
                 onError={(e) => {
+                  console.log("Profile image failed to load, using placeholder");
                   (e.target as HTMLImageElement).src = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
                 }}
                 className="w-32 h-32 rounded-full border-4 border-white shadow-md object-cover bg-white relative z-10"
