@@ -2,8 +2,22 @@ import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { MongoClient } from "mongodb";
 
-const client = new MongoClient(process.env.MONGODB_URI!.trim());
-const db = client.db();
+const uri = process.env.MONGODB_URI!;
+const client = new MongoClient(uri);
+
+let clientPromise: Promise<MongoClient>;
+
+if (process.env.NODE_ENV === "development") {
+  if (!(global as any)._mongoClientPromise) {
+    (global as any)._mongoClientPromise = client.connect();
+  }
+  clientPromise = (global as any)._mongoClientPromise;
+} else {
+  clientPromise = client.connect();
+}
+
+const connectedClient = await clientPromise;
+const db = connectedClient.db();
 
 export const auth = betterAuth({
   database: mongodbAdapter(db),
@@ -14,8 +28,8 @@ export const auth = betterAuth({
 
   socialProviders: {
     google: {
-      clientId: process.env.GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     },
   },
 
@@ -24,16 +38,14 @@ export const auth = betterAuth({
     "https://programminghero-a8-qurbani-hat.vercel.app",
   ],
 
+  baseURL: process.env.BETTER_AUTH_URL,
 
-  baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
-
-  
   cookies: {
     sessionToken: {
       attributes: {
         httpOnly: true,
-        secure: true,        
-        sameSite: "none",  
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "none",
         path: "/",
       },
     },
