@@ -76,5 +76,70 @@
     "description": "Huge Brahman cross bull. Perfect for a large family or joint Qurbani.",
     "image": "https://t3.ftcdn.net/jpg/05/09/52/92/360_F_509529271_mJceOHouF9jDlKT6KyOBt55GDeNsQ8pE.jpg",
     "category": "Giant Animal"
+  },
+  {
+    "id": 7,
+    "name": "Indian Pedi Bull",
+    "type": "Cow",
+    "breed": "Pedi",
+    "price": 220000,
+    "weight": 550,
+    "age": 4,
+    "location": "Mymensingh",
+    "description": "Strong Pedi bull known for its lean meat and large size.",
+    "image": "https://thumbs.dreamstime.com/b/camera-shot-south-indian-village-bull-isolated-background-south-indian-village-bull-130528235.jpg",
+    "category": "Large Animal"
+  },
+  {
+    "id": 8,
+    "name": "Kathiawari Goat",
+    "type": "Goat",
+    "breed": "Kathiawari",
+    "price": 35000,
+    "weight": 38,
+    "age": 2,
+    "location": "Jessore",
+    "description": "A hardy breed known for its meat quality.",
+    "image": "https://img1.exportersindia.com/product_images/bc-full/dir_19/552530/sirohi-goat-130548.jpg",
+    "category": "Small Animal"
+  },
+  {
+    "id": 9,
+    "name": "Sahiwal Cross Bull",
+    "type": "Cow",
+    "breed": "Sahiwal Cross",
+    "price": 280000,
+    "weight": 580,
+    "age": 3.5,
+    "location": "Barishal",
+    "description": "A high-yield crossbreed excellent for Qurbani meat production.",
+    "image": "https://genusabsindia.com/wp-content/uploads/2023/09/JARDIN.webp",
+    "category": "Large Animal"
+  },
+  {
+    "id": 10,
+    "name": "Beetal Goat",
+    "type": "Goat",
+    "breed": "Beetal",
+    "price": 55000,
+    "weight": 60,
+    "age": 2.5,
+    "location": "Sylhet",
+    "description": "A large, docile breed with long ears, providing substantial meat.",
+    "image": "https://5.imimg.com/data5/ML/VJ/MY-9714600/beetal-goat.jpg",
+    "category": "Premium Animal"
+  },
+  {
+    "id": 11,
+    "name": "Bhagyari Bull",
+    "type": "Cow",
+    "breed": "Bhagyari",
+    "price": 350000,
+    "weight": 700,
+    "age": 4,
+    "location": "Khulna",
+    "description": "One of the largest breeds, ideal for a large group Qurbani.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/4/43/Bhagnari-bull.jpg",
+    "category": "Giant Animal"
   }
 ]

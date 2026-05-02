@@ -8,46 +8,46 @@ const client = new MongoClient(uri);
 // Handle connection singleton for development
 let clientPromise: Promise<MongoClient>;
 if (process.env.NODE_ENV === "development") {
-  if (!(global as any)._mongoClientPromise) {
-    (global as any)._mongoClientPromise = client.connect();
-  }
-  clientPromise = (global as any)._mongoClientPromise;
+    if (!(global as any)._mongoClientPromise) {
+        (global as any)._mongoClientPromise = client.connect();
+    }
+    clientPromise = (global as any)._mongoClientPromise;
 } else {
-  clientPromise = client.connect();
+    clientPromise = client.connect();
 }
 
 const connectedClient = await clientPromise;
 const db = connectedClient.db();
 
 export const auth = betterAuth({
-  database: mongodbAdapter(db),
+    database: mongodbAdapter(db),
 
-  emailAndPassword: {
-    enabled: true,
-  },
-
-  socialProviders: {
-    google: {
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    emailAndPassword: {
+        enabled: true,
     },
-  },
 
-  trustedOrigins: [
-    "http://localhost:3000",
-    "https://programminghero-a8-qurbani-hat.vercel.app",
-  ],
-
-  baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
-
-  cookies: {
-    sessionToken: {
-      attributes: {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
-        path: "/",
-      },
+    socialProviders: {
+        google: {
+            clientId: process.env.GOOGLE_CLIENT_ID!,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+        },
     },
-  },
+
+    trustedOrigins: [
+        "http://localhost:3000",
+        "https://programminghero-a8-qurbani-hat.vercel.app",
+    ],
+
+    baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
+
+    cookies: {
+        sessionToken: {
+            attributes: {
+                httpOnly: true,
+                secure: true,
+                sameSite: "none",  
+                path: "/",
+            },
+        },
+    },
 });
