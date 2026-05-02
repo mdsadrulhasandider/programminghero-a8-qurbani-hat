@@ -16,6 +16,15 @@ export const auth = betterAuth({
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
         }
     },
+    secondaryStorage: {
+        get: async (key) => {
+            return null;
+        },
+        set: async (key, value, expiration) => {
+        },
+        delete: async (key) => {
+        }
+    },
     trustedOrigins: [
         "http://localhost:3000",
         "https://programminghero-a8-qurbani-hat.vercel.app"
