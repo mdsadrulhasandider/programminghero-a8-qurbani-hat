@@ -23,7 +23,7 @@ export const auth = betterAuth({
         "https://programminghero-a8-qurbani-hat.vercel.app",
     ],
 
-    baseURL: process.env.BETTER_AUTH_URL || "https://programminghero-a8-qurbani-hat.vercel.app",
+    baseURL: "https://programminghero-a8-qurbani-hat.vercel.app",
 
     cookies: {
         sessionToken: {
